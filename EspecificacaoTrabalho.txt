@@ -1,0 +1,187 @@
+## Trabalho de Segurança de Sistemas
+
+### Criptografia e Criptoanálise com Cifra de Vigenère
+
+### 1. Objetivo geral
+
+Implementar, em **Java, Python ou C++**, dois algoritmos:
+
+* **Algoritmo de criptografia** utilizando a Cifra de Vigenère;
+* **Algoritmo de criptoanálise** capaz de quebrar a cifra **sem conhecer previamente a senha**.
+
+Os algoritmos serão avaliados por meio de uma **apresentação prática**, durante a qual poderão ser solicitadas execuções utilizando diferentes arquivos.
+
+---
+
+## 2. Parte 1 — Algoritmo de Criptografia
+
+### Entrada
+
+O programa deverá receber:
+
+* Um arquivo `.txt` contendo o texto original;
+* Uma senha (chave) fornecida pelo usuário.
+
+### Saída
+
+O programa deverá gerar:
+
+* Um arquivo contendo o texto criptografado.
+
+Exemplo de nome:
+
+`texto_criptografado.txt`
+
+### 2.1. Higienização do texto
+
+Antes da criptografia, o texto deverá ser normalizado da seguinte forma:
+
+1. Converter todo o texto para **letras minúsculas**;
+2. Remover acentos e sinais diacríticos:
+
+   * `á → a`
+   * `ç → c`
+   * `ã → a`
+   * etc.
+3. Remover:
+
+   * pontuação;
+   * números;
+   * espaços;
+   * caracteres especiais.
+4. Manter **somente letras de `a` a `z`**.
+
+### 2.2. Criptografia
+
+Após a higienização:
+
+1. Repetir a senha ciclicamente ao longo de todo o texto;
+2. Aplicar a **Cifra de Vigenère**, utilizando operações modulares sobre o alfabeto de 26 letras;
+3. Salvar o texto cifrado em um arquivo.
+
+A operação pode ser representada por:
+
+$$
+C_i = (P_i + K_i) \mod 26
+$$
+
+onde:
+
+* \(P_i\) = letra do texto original;
+* \(K_i\) = letra correspondente da chave;
+* \(C_i\) = letra resultante no texto cifrado.
+
+### Testes recomendados
+
+* **Palavra-chave:** `segredo`
+* **Texto:** *Dom Casmurro* ou outros textos fornecidos.
+
+---
+
+# 3. Parte 2 — Algoritmo de Criptoanálise
+
+### Objetivo
+
+Recuperar o texto original a partir de um texto cifrado **sem conhecer a senha**, assumindo que o texto original está em **português**.
+
+O ataque será realizado em duas etapas principais.
+
+---
+
+## 3.1. Etapa 1 — Descoberta do tamanho da senha
+
+O programa deverá:
+
+1. Testar diferentes tamanhos possíveis de chave, por exemplo, de **1 a 10**;
+2. Calcular o **Índice de Coincidência (IC)** para esses tamanhos;
+3. Comparar os resultados;
+4. Identificar o tamanho de chave mais provável.
+
+O Índice de Coincidência pode ser calculado por:
+
+$$
+IC = \frac{\sum_{i=1}^{26} f_i(f_i-1)}{N(N-1)}
+$$
+
+onde:
+
+* \(f_i\) = quantidade de ocorrências da letra \(i\);
+* \(N\) = quantidade total de letras analisadas.
+
+Para cada tamanho candidato de chave, o texto pode ser separado em grupos correspondentes às posições da chave e o IC calculado para esses grupos.
+
+---
+
+## 3.2. Etapa 2 — Análise de frequência
+
+Depois de estimar o tamanho da senha:
+
+1. Dividir o texto cifrado em **subtextos**, um para cada posição da chave;
+2. Calcular a frequência das letras em cada subtexto;
+3. Comparar essas frequências com a distribuição típica das letras no **português**;
+4. Inferir o deslocamento de Vigenère correspondente a cada posição;
+5. Aplicar o deslocamento inverso;
+6. Reconstruir o texto original.
+
+A decifragem pode ser representada por:
+
+$$
+P_i = (C_i - K_i) \mod 26
+$$
+
+---
+
+# 4. Saída esperada da criptoanálise
+
+O programa deverá apresentar pelo menos:
+
+* **Tamanho estimado da senha**;
+* **Texto decifrado**, legível em português.
+
+> A descrição não exige explicitamente que o programa apresente a senha recuperada. Porém, como os deslocamentos de cada posição são encontrados durante a análise de frequência, é recomendável também exibir a **chave estimada**.
+
+---
+
+# 5. Requisitos gerais
+
+O projeto deverá atender aos seguintes requisitos:
+
+* Código **bem organizado**;
+* Código **comentado**;
+* Suporte a **arquivos grandes**;
+* Interface:
+
+  * linha de comando; ou
+  * interface gráfica, opcional.
+* Linguagens permitidas:
+
+  * **Java**
+  * **Python**
+  * **C++**
+
+---
+
+# 6. Apresentação
+
+A apresentação será **individual dentro do grupo**.
+
+Todos os integrantes deverão ser capazes de explicar:
+
+* Como funciona a **Cifra de Vigenère**;
+* Como funciona o **ataque/criptoanálise**;
+* Como funciona o **código implementado**.
+
+O professor poderá fazer perguntas para **qualquer integrante do grupo**.
+
+---
+
+# 7. Critérios de avaliação
+
+Serão avaliados:
+
+* Correção funcional dos algoritmos;
+* Qualidade da higienização do texto;
+* Eficiência do ataque;
+* Organização do código;
+* Clareza durante a apresentação;
+* Domínio individual do conteúdo.
