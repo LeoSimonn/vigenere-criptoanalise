@@ -105,19 +105,24 @@ com `P_i = (C_i − K_i) mod 26`.
 
 ## Resultado com o teste recomendado
 
-`DomCasmurro.txt` + senha `segredo` (308.921 letras):
+`DomCasmurro.txt` + senha `segredo` (293.440 letras):
 
 ```
   tamanho    IC médio
-        1    0.0468
+        1    0.0473
         ...
-        7    0.0767  <== mais provável
+        7    0.0781  <== mais provável
         ...
-       14    0.0767
+       14    0.0781
 
 Tamanho da senha: 7
 Chave estimada:   segredo
 ```
+
+O IC obtido no tamanho correto (0,0781) coincide com o IC teórico do
+português, porque `DomCasmurro.txt` contém apenas o romance — o cabeçalho e a
+licença do Project Gutenberg, que estão em inglês, foram removidos para não
+contaminar a estatística nem a prévia do texto decifrado.
 
 Em testes adicionais o ataque recuperou corretamente chaves de 1 a 20 letras
 (incluindo casos como `aaaaab` e `abcabd`) com amostras de apenas 3.000
