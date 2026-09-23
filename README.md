@@ -1,5 +1,7 @@
 # Cifra de Vigenère — Criptografia e Criptoanálise
 
+**Autores:** Gustavo Melleu e Leonardo Monteiro
+
 Trabalho de Segurança de Sistemas. Implementação em **Python 3** (sem
 dependências externas) de:
 
